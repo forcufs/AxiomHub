@@ -146,28 +146,43 @@ local function getGameName()
     return "Unknown"
 end
 
-local function loadGameScript()
-    if not currentGameSupported then return end
-    
-    local scriptUrl = "https://raw.githubusercontent.com/forcufs/AxiomHub/refs/heads/main/scripts/" .. game.PlaceId .. ".lua"
-    
+local function loadScript(tab, url)
     local success, scriptContent = pcall(function()
-        return game:HttpGet(scriptUrl)
+        return game:HttpGet(url)
     end)
     
     if success and scriptContent then
-        local gameTab = Window:Tab({
-            Title = currentGameSupported.name,
-            Icon = currentGameSupported.icon,
-            IconColor = Color3.fromHex("#a78bfa"),
-            Border = true
-        })
-        
         local loadFunc = loadstring(scriptContent)
         if loadFunc then
-            loadFunc(gameTab, Window, WindUI)
+            loadFunc(tab, Window, WindUI)
         end
     end
+end
+
+local function loadGameScript()
+    if not currentGameSupported then return end
+    
+    local gameTab = Window:Tab({
+        Title = currentGameSupported.name,
+        Icon = currentGameSupported.icon,
+        IconColor = Color3.fromHex("#a78bfa"),
+        Border = true
+    })
+    
+    local scriptUrl = "https://raw.githubusercontent.com/forcufs/AxiomHub/refs/heads/main/scripts/" .. game.PlaceId .. ".lua"
+    loadScript(gameTab, scriptUrl)
+end
+
+local function loadUniversalScript()
+    local universalTab = Window:Tab({
+        Title = "Universal",
+        Icon = "lucide:globe",
+        IconColor = Color3.fromHex("#a78bfa"),
+        Border = true
+    })
+    
+    local scriptUrl = "https://raw.githubusercontent.com/forcufs/AxiomHub/refs/heads/main/universal.lua"
+    loadScript(universalTab, scriptUrl)
 end
 
 local HomeTab = Window:Tab({ 
@@ -209,6 +224,8 @@ HomeSection:Paragraph({
     Title = "Job ID",
     Desc = game.JobId
 })
+
+loadUniversalScript()
 
 if isGameSupported() then
     loadGameScript()
