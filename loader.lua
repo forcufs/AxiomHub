@@ -12,102 +12,126 @@ local function CreateGradient(color1, color2, color3)
     })
 end
 
-WindUI:AddTheme({
-    Name = "AxiomDark",
-    
-    Accent = CreateGradient(
-        Color3.fromHex("#0f0f1a"),
-        Color3.fromHex("#1a1a2e"),
-        Color3.fromHex("#0f0f1a")
-    ),
-    Background = Color3.fromHex("#080810"),
-    BackgroundTransparency = 0,
-    Outline = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#8a4fff"),
-        Color3.fromHex("#6c6cff")
-    ),
-    Text = Color3.fromHex("#e8e8f0"),
-    Placeholder = Color3.fromHex("#5a5a7a"),
-    
-    Button = CreateGradient(
-        Color3.fromHex("#1a1a30"),
-        Color3.fromHex("#252545"),
-        Color3.fromHex("#1a1a30")
-    ),
-    Icon = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    
-    Hover = Color3.fromHex("#a78bfa"),
-    
-    WindowBackground = CreateGradient(
-        Color3.fromHex("#080810"),
-        Color3.fromHex("#0f0f1f"),
-        Color3.fromHex("#080810")
-    ),
-    WindowShadow = Color3.fromHex("#000000"),
-    
-    WindowTopbarButtonIcon = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    WindowTopbarTitle = Color3.fromHex("#e8e8f0"),
-    WindowTopbarAuthor = Color3.fromHex("#a78bfa"),
-    WindowTopbarIcon = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    
-    TabBackground = Color3.fromHex("#e8e8f0"),
-    TabTitle = Color3.fromHex("#e8e8f0"),
-    TabIcon = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    
-    ElementBackground = CreateGradient(
-        Color3.fromHex("#12121f"),
-        Color3.fromHex("#1a1a2e"),
-        Color3.fromHex("#12121f")
-    ),
-    ElementTitle = Color3.fromHex("#e8e8f0"),
-    ElementDesc = Color3.fromHex("#a78bfa"),
-    ElementIcon = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    
-    Toggle = CreateGradient(
-        Color3.fromHex("#1a1a30"),
-        Color3.fromHex("#252545"),
-        Color3.fromHex("#1a1a30")
-    ),
-    ToggleBar = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-    
-    Slider = CreateGradient(
-        Color3.fromHex("#1a1a30"),
-        Color3.fromHex("#252545"),
-        Color3.fromHex("#1a1a30")
-    ),
-    SliderThumb = CreateGradient(
-        Color3.fromHex("#6c6cff"),
-        Color3.fromHex("#a78bfa"),
-        Color3.fromHex("#6c6cff")
-    ),
-})
+local Themes = {
+    Midnight = {
+        Name = "AxiomMidnight",
+        Accent = CreateGradient(Color3.fromHex("#0f0f1a"), Color3.fromHex("#1a1a2e"), Color3.fromHex("#0f0f1a")),
+        Background = Color3.fromHex("#080810"),
+        Outline = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#8a4fff"), Color3.fromHex("#6c6cff")),
+        Text = Color3.fromHex("#e8e8f0"),
+        Placeholder = Color3.fromHex("#5a5a7a"),
+        Button = CreateGradient(Color3.fromHex("#1a1a30"), Color3.fromHex("#252545"), Color3.fromHex("#1a1a30")),
+        Icon = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        Hover = Color3.fromHex("#a78bfa"),
+        WindowBackground = CreateGradient(Color3.fromHex("#080810"), Color3.fromHex("#0f0f1f"), Color3.fromHex("#080810")),
+        WindowShadow = Color3.fromHex("#000000"),
+        WindowTopbarButtonIcon = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        WindowTopbarTitle = Color3.fromHex("#e8e8f0"),
+        WindowTopbarAuthor = Color3.fromHex("#a78bfa"),
+        WindowTopbarIcon = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        TabBackground = Color3.fromHex("#e8e8f0"),
+        TabTitle = Color3.fromHex("#e8e8f0"),
+        TabIcon = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        ElementBackground = CreateGradient(Color3.fromHex("#12121f"), Color3.fromHex("#1a1a2e"), Color3.fromHex("#12121f")),
+        ElementTitle = Color3.fromHex("#e8e8f0"),
+        ElementDesc = Color3.fromHex("#a78bfa"),
+        ElementIcon = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        Toggle = CreateGradient(Color3.fromHex("#1a1a30"), Color3.fromHex("#252545"), Color3.fromHex("#1a1a30")),
+        ToggleBar = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+        Slider = CreateGradient(Color3.fromHex("#1a1a30"), Color3.fromHex("#252545"), Color3.fromHex("#1a1a30")),
+        SliderThumb = CreateGradient(Color3.fromHex("#6c6cff"), Color3.fromHex("#a78bfa"), Color3.fromHex("#6c6cff")),
+    },
+    Lucid = {
+        Name = "AxiomLucid",
+        Accent = Color3.fromHex("#f5f0e8"),
+        Background = Color3.fromHex("#fffdf7"),
+        Outline = Color3.fromHex("#d4cfc4"),
+        Text = Color3.fromHex("#3a3a3a"),
+        Placeholder = Color3.fromHex("#b0a99d"),
+        Button = Color3.fromHex("#e8e2d5"),
+        Icon = Color3.fromHex("#9b8c7c"),
+        Hover = Color3.fromHex("#c4b998"),
+        WindowBackground = Color3.fromHex("#fffdf7"),
+        WindowShadow = Color3.fromHex("#000000"),
+        WindowTopbarButtonIcon = Color3.fromHex("#9b8c7c"),
+        WindowTopbarTitle = Color3.fromHex("#3a3a3a"),
+        WindowTopbarAuthor = Color3.fromHex("#6b5e4f"),
+        WindowTopbarIcon = Color3.fromHex("#9b8c7c"),
+        TabBackground = Color3.fromHex("#3a3a3a"),
+        TabTitle = Color3.fromHex("#3a3a3a"),
+        TabIcon = Color3.fromHex("#9b8c7c"),
+        ElementBackground = Color3.fromHex("#faf7f0"),
+        ElementTitle = Color3.fromHex("#3a3a3a"),
+        ElementDesc = Color3.fromHex("#6b5e4f"),
+        ElementIcon = Color3.fromHex("#9b8c7c"),
+        Toggle = Color3.fromHex("#e8e2d5"),
+        ToggleBar = Color3.fromHex("#9b8c7c"),
+        Slider = Color3.fromHex("#e8e2d5"),
+        SliderThumb = Color3.fromHex("#9b8c7c"),
+    },
+    Violet = {
+        Name = "AxiomViolet",
+        Accent = CreateGradient(Color3.fromHex("#2d1b4e"), Color3.fromHex("#4a2d7a"), Color3.fromHex("#2d1b4e")),
+        Background = Color3.fromHex("#1a102b"),
+        Outline = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        Text = Color3.fromHex("#ede9fe"),
+        Placeholder = Color3.fromHex("#7c6ba0"),
+        Button = CreateGradient(Color3.fromHex("#3d2660"), Color3.fromHex("#5a3890"), Color3.fromHex("#3d2660")),
+        Icon = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        Hover = Color3.fromHex("#c4b5fd"),
+        WindowBackground = CreateGradient(Color3.fromHex("#1a102b"), Color3.fromHex("#251745"), Color3.fromHex("#1a102b")),
+        WindowShadow = Color3.fromHex("#000000"),
+        WindowTopbarButtonIcon = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        WindowTopbarTitle = Color3.fromHex("#ede9fe"),
+        WindowTopbarAuthor = Color3.fromHex("#c4b5fd"),
+        WindowTopbarIcon = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        TabBackground = Color3.fromHex("#ede9fe"),
+        TabTitle = Color3.fromHex("#ede9fe"),
+        TabIcon = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        ElementBackground = CreateGradient(Color3.fromHex("#221636"), Color3.fromHex("#2d1b4e"), Color3.fromHex("#221636")),
+        ElementTitle = Color3.fromHex("#ede9fe"),
+        ElementDesc = Color3.fromHex("#c4b5fd"),
+        ElementIcon = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        Toggle = CreateGradient(Color3.fromHex("#3d2660"), Color3.fromHex("#5a3890"), Color3.fromHex("#3d2660")),
+        ToggleBar = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+        Slider = CreateGradient(Color3.fromHex("#3d2660"), Color3.fromHex("#5a3890"), Color3.fromHex("#3d2660")),
+        SliderThumb = CreateGradient(Color3.fromHex("#a78bfa"), Color3.fromHex("#c4b5fd"), Color3.fromHex("#a78bfa")),
+    },
+}
 
-WindUI:SetTheme("AxiomDark")
+for _, theme in pairs(Themes) do
+    WindUI:AddTheme({
+        Name = theme.Name,
+        Accent = theme.Accent,
+        Background = theme.Background,
+        BackgroundTransparency = 0,
+        Outline = theme.Outline,
+        Text = theme.Text,
+        Placeholder = theme.Placeholder,
+        Button = theme.Button,
+        Icon = theme.Icon,
+        Hover = theme.Hover,
+        WindowBackground = theme.WindowBackground,
+        WindowShadow = theme.WindowShadow,
+        WindowTopbarButtonIcon = theme.WindowTopbarButtonIcon,
+        WindowTopbarTitle = theme.WindowTopbarTitle,
+        WindowTopbarAuthor = theme.WindowTopbarAuthor,
+        WindowTopbarIcon = theme.WindowTopbarIcon,
+        TabBackground = theme.TabBackground,
+        TabTitle = theme.TabTitle,
+        TabIcon = theme.TabIcon,
+        ElementBackground = theme.ElementBackground,
+        ElementTitle = theme.ElementTitle,
+        ElementDesc = theme.ElementDesc,
+        ElementIcon = theme.ElementIcon,
+        Toggle = theme.Toggle,
+        ToggleBar = theme.ToggleBar,
+        Slider = theme.Slider,
+        SliderThumb = theme.SliderThumb,
+    })
+end
+
+WindUI:SetTheme("AxiomMidnight")
 
 local Window = WindUI:CreateWindow({
     Title = "Axiom Hub",
@@ -154,7 +178,10 @@ local function loadScript(tab, url)
     if success and scriptContent then
         local loadFunc = loadstring(scriptContent)
         if loadFunc then
-            loadFunc(tab, Window, WindUI)
+            local ok, err = pcall(loadFunc, tab, Window, WindUI)
+            if not ok then
+                warn("Failed to load script: " .. url .. " - " .. tostring(err))
+            end
         end
     end
 end
@@ -223,6 +250,24 @@ HomeSection:Paragraph({
 HomeSection:Paragraph({
     Title = "Job ID",
     Desc = game.JobId
+})
+
+local SettingsTab = Window:Tab({
+    Title = "Settings",
+    Icon = "lucide:settings",
+    IconColor = Color3.fromHex("#a78bfa"),
+    Border = true
+})
+
+local ThemeSection = SettingsTab:Section({ Title = "Themes" })
+
+local themeDropdown = ThemeSection:Dropdown({
+    Title = "Select Theme",
+    Values = {"Midnight", "Lucid", "Violet"},
+    Value = "Midnight",
+    Callback = function(value)
+        WindUI:SetTheme("Axiom" .. value)
+    end
 })
 
 loadUniversalScript()
