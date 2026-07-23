@@ -43,31 +43,31 @@ local Themes = {
     },
     Lucid = {
         Name = "AxiomLucid",
-        Accent = Color3.fromHex("#f5f0e8"),
-        Background = Color3.fromHex("#fffdf7"),
-        Outline = Color3.fromHex("#d4cfc4"),
-        Text = Color3.fromHex("#3a3a3a"),
-        Placeholder = Color3.fromHex("#b0a99d"),
-        Button = Color3.fromHex("#e8e2d5"),
-        Icon = Color3.fromHex("#9b8c7c"),
-        Hover = Color3.fromHex("#c4b998"),
-        WindowBackground = Color3.fromHex("#fffdf7"),
+        Accent = Color3.fromHex("#ede6db"),
+        Background = Color3.fromHex("#f9f5ee"),
+        Outline = Color3.fromHex("#cfc5b8"),
+        Text = Color3.fromHex("#2c2c2c"),
+        Placeholder = Color3.fromHex("#a0988a"),
+        Button = Color3.fromHex("#e2d9cd"),
+        Icon = Color3.fromHex("#8c7a64"),
+        Hover = Color3.fromHex("#c4b09a"),
+        WindowBackground = Color3.fromHex("#f9f5ee"),
         WindowShadow = Color3.fromHex("#000000"),
-        WindowTopbarButtonIcon = Color3.fromHex("#9b8c7c"),
-        WindowTopbarTitle = Color3.fromHex("#3a3a3a"),
-        WindowTopbarAuthor = Color3.fromHex("#6b5e4f"),
-        WindowTopbarIcon = Color3.fromHex("#9b8c7c"),
-        TabBackground = Color3.fromHex("#3a3a3a"),
-        TabTitle = Color3.fromHex("#3a3a3a"),
-        TabIcon = Color3.fromHex("#9b8c7c"),
-        ElementBackground = Color3.fromHex("#faf7f0"),
-        ElementTitle = Color3.fromHex("#3a3a3a"),
-        ElementDesc = Color3.fromHex("#6b5e4f"),
-        ElementIcon = Color3.fromHex("#9b8c7c"),
-        Toggle = Color3.fromHex("#e8e2d5"),
-        ToggleBar = Color3.fromHex("#9b8c7c"),
-        Slider = Color3.fromHex("#e8e2d5"),
-        SliderThumb = Color3.fromHex("#9b8c7c"),
+        WindowTopbarButtonIcon = Color3.fromHex("#8c7a64"),
+        WindowTopbarTitle = Color3.fromHex("#2c2c2c"),
+        WindowTopbarAuthor = Color3.fromHex("#5e4f3e"),
+        WindowTopbarIcon = Color3.fromHex("#8c7a64"),
+        TabBackground = Color3.fromHex("#2c2c2c"),
+        TabTitle = Color3.fromHex("#2c2c2c"),
+        TabIcon = Color3.fromHex("#8c7a64"),
+        ElementBackground = Color3.fromHex("#f5f0e8"),
+        ElementTitle = Color3.fromHex("#2c2c2c"),
+        ElementDesc = Color3.fromHex("#5e4f3e"),
+        ElementIcon = Color3.fromHex("#8c7a64"),
+        Toggle = Color3.fromHex("#e2d9cd"),
+        ToggleBar = Color3.fromHex("#8c7a64"),
+        Slider = Color3.fromHex("#e2d9cd"),
+        SliderThumb = Color3.fromHex("#8c7a64"),
     },
     Violet = {
         Name = "AxiomViolet",
@@ -170,7 +170,7 @@ local function getGameName()
     return "Unknown"
 end
 
--- Built‑in universal script (fallback)
+-- Built‑in fallback universal script (guaranteed to work)
 local UniversalFallback = [[
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -395,31 +395,45 @@ end
 ]]
 
 local function loadScript(tab, url, fallbackSource)
-    local success, scriptContent = pcall(function()
+    local scriptContent = nil
+
+    -- Try fetching from URL
+    local success, result = pcall(function()
         return game:HttpGet(url)
     end)
-    
-    if not success or not scriptContent then
-        if fallbackSource then
-            scriptContent = fallbackSource
-        else
-            tab:Section({ Title = "Error" }):Paragraph({
-                Title = "Failed to load",
-                Desc = "Could not fetch script from server."
-            })
-            return
-        end
+
+    if success and result and #result > 0 then
+        scriptContent = result
     end
-    
-    local loadFunc = loadstring(scriptContent)
-    if loadFunc then
-        local ok, err = pcall(loadFunc, tab, Window, WindUI)
-        if not ok then
-            tab:Section({ Title = "Error" }):Paragraph({
-                Title = "Failed to load",
-                Desc = "Script error: " .. tostring(err)
-            })
-        end
+
+    -- If fetch failed or empty, use fallback (if provided)
+    if not scriptContent and fallbackSource then
+        scriptContent = fallbackSource
+    end
+
+    if not scriptContent then
+        tab:Section({ Title = "Error" }):Paragraph({
+            Title = "Failed to load",
+            Desc = "Could not fetch script from server."
+        })
+        return
+    end
+
+    local loadFunc, loadErr = loadstring(scriptContent)
+    if not loadFunc then
+        tab:Section({ Title = "Error" }):Paragraph({
+            Title = "Failed to load",
+            Desc = "Script error: " .. tostring(loadErr)
+        })
+        return
+    end
+
+    local ok, err = pcall(loadFunc, tab, Window, WindUI)
+    if not ok then
+        tab:Section({ Title = "Error" }):Paragraph({
+            Title = "Failed to load",
+            Desc = "Script error: " .. tostring(err)
+        })
     end
 end
 
@@ -449,7 +463,8 @@ local function loadUniversalScript()
     loadScript(universalTab, scriptUrl, UniversalFallback)
 end
 
--- Home tab
+-- Tab order: Home → Universal → Settings
+-- Create Home
 local HomeTab = Window:Tab({ 
     Title = "Home", 
     Icon = "lucide:home",
@@ -490,7 +505,10 @@ HomeSection:Paragraph({
     Desc = game.JobId
 })
 
--- Settings tab
+-- Load Universal (second tab)
+loadUniversalScript()
+
+-- Settings tab (third)
 local SettingsTab = Window:Tab({
     Title = "Settings",
     Icon = "lucide:settings",
@@ -509,8 +527,7 @@ ThemeSection:Dropdown({
     end
 })
 
-loadUniversalScript()
-
+-- Game‑specific script (if any) loads last
 if isGameSupported() then
     loadGameScript()
 end
