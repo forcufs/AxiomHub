@@ -180,9 +180,17 @@ local function loadScript(tab, url)
         if loadFunc then
             local ok, err = pcall(loadFunc, tab, Window, WindUI)
             if not ok then
-                warn("Failed to load script: " .. url .. " - " .. tostring(err))
+                tab:Section({ Title = "Error" }):Paragraph({
+                    Title = "Failed to load",
+                    Desc = "Script error: " .. tostring(err)
+                })
             end
         end
+    else
+        tab:Section({ Title = "Error" }):Paragraph({
+            Title = "Failed to load",
+            Desc = "Could not fetch script from server."
+        })
     end
 end
 
@@ -261,7 +269,7 @@ local SettingsTab = Window:Tab({
 
 local ThemeSection = SettingsTab:Section({ Title = "Themes" })
 
-local themeDropdown = ThemeSection:Dropdown({
+ThemeSection:Dropdown({
     Title = "Select Theme",
     Values = {"Midnight", "Lucid", "Violet"},
     Value = "Midnight",
