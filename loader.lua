@@ -1,4 +1,5 @@
 -- Loader
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local function CreateGradient(color1, color2, color3)
@@ -108,7 +109,6 @@ WindUI:AddTheme({
 
 WindUI:SetTheme("AxiomDark")
 
-
 local Window = WindUI:CreateWindow({
     Title = "Axiom Hub",
     Icon = "lucide:box",
@@ -122,44 +122,9 @@ local Window = WindUI:CreateWindow({
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local MarketplaceService = game:GetService("MarketplaceService")
-local HttpService = game:GetService("HttpService")
 
 local supportedGames = {
-    [142823291] = {
-        name = "Murder Mystery 2",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/142823291.lua",
-        icon = "🗡️"
-    },
-    [2753915549] = {
-        name = "Blox Fruits",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/2753915549.lua",
-        icon = "🍎"
-    },
-    [537413528] = {
-        name = "Build A Boat For Treasure",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/537413528.lua",
-        icon = "⛵"
-    },
-    [155615604] = {
-        name = "Prison Life",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/155615604.lua",
-        icon = "🔒"
-    },
-    [1962086868] = {
-        name = "Tower of Hell",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/1962086868.lua",
-        icon = "🏗️"
-    },
-    [292439477] = {
-        name = "Phantom Forces",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/292439477.lua",
-        icon = "🔫"
-    },
-    [301549746] = {
-        name = "Counter Blox",
-        script = "https://raw.githubusercontent.com/forcufs/AxiomHub/main/301549746.lua",
-        icon = "🎯"
-    },
+    [142823291] = { name = "Murder Mystery 2", icon = "lucide:sword" },
 }
 
 local currentGameSupported = supportedGames[game.PlaceId]
@@ -184,12 +149,13 @@ end
 local function loadGameScript()
     if not currentGameSupported then return end
     
+    local scriptUrl = "https://raw.githubusercontent.com/forcufs/AxiomHub/refs/heads/main/scripts/" .. game.PlaceId .. ".lua"
+    
     local success, scriptContent = pcall(function()
-        return game:HttpGet(currentGameSupported.script)
+        return game:HttpGet(scriptUrl)
     end)
     
     if success and scriptContent then
-        -- Create the game tab
         local gameTab = Window:Tab({
             Title = currentGameSupported.name,
             Icon = currentGameSupported.icon,
@@ -197,7 +163,6 @@ local function loadGameScript()
             Border = true
         })
         
-        -- Execute the game-specific script with access to the tab
         local loadFunc = loadstring(scriptContent)
         if loadFunc then
             loadFunc(gameTab, Window, WindUI)
@@ -205,7 +170,6 @@ local function loadGameScript()
     end
 end
 
--- Home Tab
 local HomeTab = Window:Tab({ 
     Title = "Home", 
     Icon = "lucide:home",
@@ -215,14 +179,12 @@ local HomeTab = Window:Tab({
 
 local HomeSection = HomeTab:Section({ Title = "Welcome to Axiom Hub" })
 
--- Logo using Roblox asset ID
 HomeSection:Image({
     Image = "rbxassetid://73812132033559",
     AspectRatio = "16:9",
     Radius = 12,
 })
 
--- User info cards
 HomeSection:Paragraph({
     Title = "Current User",
     Desc = "@" .. LocalPlayer.Name
@@ -248,7 +210,6 @@ HomeSection:Paragraph({
     Desc = game.JobId
 })
 
--- Load game-specific script if supported
 if isGameSupported() then
     loadGameScript()
 end
